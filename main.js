@@ -11,7 +11,7 @@ const mapWidthInput = document.getElementById("mapWidth");
 const scaleSlider = document.getElementById("scaleSlider");
 const mapHeightInput = document.getElementById("mapHeight");
 
-const layers = ["t_ground", "t_floor", "t_plant", "t_block"];
+const layers = ["t_water", "t_ground", "t_floor", "t_plant", "t_block"];
 
 function createTilemap(width, height) {
   const oldTileMap = tilemap;
@@ -20,6 +20,7 @@ function createTilemap(width, height) {
     const row = [];
     for (let x = 0; x < width; x++) {
       const cell = {
+        t_water: AllTiles[0],
         t_ground: AllTiles[0],
         t_floor: AllTiles[0],
         t_plant: AllTiles[0],
@@ -53,6 +54,7 @@ function importTilemap(data) {
     const row = [];
     for (let x = 0; x < width; x++) {
       const cell = {
+        t_water: data.t_water === undefined ? AllTiles[0] : AllTiles[data.t_water[y][x]],
         t_ground: AllTiles[data.t_ground[y][x]] || AllTiles[0],
         t_floor: AllTiles[data.t_floor[y][x]] || AllTiles[0],
         t_plant: AllTiles[data.t_plant[y][x]] || AllTiles[0],
@@ -74,6 +76,7 @@ function exportTilemap() {
   return {
     width: width,
     height: height,
+    t_water: tilemap.map(row => row.map(cell => cell.t_water.id)),
     t_ground: tilemap.map(row => row.map(cell => cell.t_ground.id)),
     t_floor: tilemap.map(row => row.map(cell => cell.t_floor.id)),
     t_plant: tilemap.map(row => row.map(cell => cell.t_plant.id)),
@@ -489,6 +492,7 @@ initTiles().then((loadedTiles) => {
           } else {
             // out of bound, use void tile
             const cell = {
+              t_water: AllTiles[0],
               t_ground: AllTiles[0],
               t_floor: AllTiles[0],
               t_plant: AllTiles[0],
