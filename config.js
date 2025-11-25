@@ -1,5 +1,5 @@
 const API_HOST = "https://api.spelltide.games";
-const SERVER_HOST = "https://spelltide.github.io/map-editor";
+const SERVER_HOST = "https://spelltide-games.github.io/map-editor";
 
 const OIDC_CONFIG = {
     authority: "https://dev-2lkojq.us1.zitadel.cloud/",
